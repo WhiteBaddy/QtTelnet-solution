@@ -3,8 +3,6 @@
 
 #include <QtCore/qglobal.h>
 
-#include <QDebug>
-
 #if defined(QTTELNET_LIBRARY)
 #  define QTTELNET_EXPORT Q_DECL_EXPORT
 #else

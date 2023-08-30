@@ -9,6 +9,8 @@ QtTelnetAuthNull::QtTelnetAuthNull()
 
 QByteArray QtTelnetAuthNull::authStep(const QByteArray &data)
 {
+    // 生成空认证模式的认证指令
+
     Q_ASSERT(data[0] == Common::Authentication);
 
     if (data.size() < 2 || data[1] != Common::SEND)
@@ -27,6 +29,7 @@ QByteArray QtTelnetAuthNull::authStep(const QByteArray &data)
         , (char)Common::SE
     };
 
+    // 认证状态设置为 成功
     setState(AuthSuccess);
 
     return QByteArray(buffer, sizeof(buffer));

@@ -23,14 +23,14 @@ public:
     ~QtTelnetPrivate();
 
     /*!
-     * \brief allowOption   : 是否允许选项
+     * \brief allowOption   : 在 option 的值符合某几种情况时 允许
      * \param operation     : 操作类型
      * \param option        : 选项
      * \return              : 表示是否允许选项的 bool 值
      */
     bool allowOption(int operation, int option);
     /*!
-     * \brief sendOptions   : 执行一个发送选项的操作
+     * \brief sendOptions   : 发送一系列指令, 以建立和维护一个与远程主机的会话, 并进行相应的功能和参数协商
      */
     void sendOptions();
     /*!
@@ -134,6 +134,12 @@ public:
      * \param data              : 缓存区数据
      */
     void parseSubNAWS(const QByteArray& data);
+    /*!
+     * \brief opposite          : 用于在 \fn parseIAC 中 生成一个对方请求的响应字符
+     * \param operation         : 操作类型
+     * \param positive          : 选项
+     * \return                  : (DO || WILL) && true ==> (WILL || DO), else (WONT || DONT) 不匹配的话返回 0
+     */
     uchar opposite(uchar operation, bool positive);
 
     /**
@@ -142,7 +148,7 @@ public:
     void consume();
 
     /*!
-     * \brief setSocket         : 赋值一个新的 socket 套接字
+     * \brief setSocket         : 赋值一个新的 socket 套接字, 并进行相关的配置操作
      * \param socket            : 新的套接字
      */
     void setSocket(QTcpSocket* socket);
@@ -156,32 +162,35 @@ public slots:
 
 public:
 
-    QMap<char, bool> m_modes;
-    QList<QPair<uchar, uchar>> m_osent;
+    QMap<char, bool> m_modes;               //
+    QList<QPair<uchar, uchar>> m_osent;     //
 
-    QtTelnet *m_q;
-    QTcpSocket* m_socket;
-    QtTelnetReceiveBuffer m_buffer;
-    QSocketNotifier* m_notifier;
+    QtTelnet *m_q;                          //
+    QTcpSocket* m_socket;                   //
+    QtTelnetReceiveBuffer m_buffer;         //
+    QSocketNotifier* m_notifier;            //
 
-    QSize m_windowSize;
+    QSize m_windowSize;                     //
 
-    bool m_connected;
-    bool m_nocheckp;
-    bool m_triedLogin;
-    bool m_triedPass;
-    bool m_firstTry;
+    bool m_connected;                       //
+    bool m_nocheckp;                        //
+    bool m_triedLogin;                      //
+    bool m_triedPass;                       //
+    bool m_firstTry;                        //
 
-    QMap<int, QtTelnetAuth*> m_auths;
-    QtTelnetAuth* m_curAuth;
-    bool m_nullAuth;
+    QMap<int, QtTelnetAuth*> m_auths;       //
+    QtTelnetAuth* m_curAuth;                //
+    bool m_nullAuth;                        //
 
-    QRegularExpression m_loginp;
-    QRegularExpression m_passp;
-    QRegularExpression m_promptp;
+    QRegularExpression m_loginPattern;      //
+    QRegularExpression m_passPattern;       //
+    QRegularExpression m_promptPattern;     //
 
-    QString m_login;
-    QString m_pass;
+    QString m_userName;                     //
+    QString m_passwd;                       //
+
+
+    static const QRegularExpression m_ctrlPattern;  // 用于消除不能被识别的 \x1B 开头的控制字符
 
 signals:
 

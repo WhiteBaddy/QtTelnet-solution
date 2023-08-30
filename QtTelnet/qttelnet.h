@@ -83,16 +83,16 @@ public:
     QTcpSocket *socket() const;
 
     /**
-     * @brief setPromptParrern  : 设置提示模式
+     * @brief setPromptPattern  : 设置提示模式
      * @param pattern           : 模式
      */
-    void setPromptParrern(const QRegularExpression &pattern);
+    void setPromptPattern(const QRegularExpression &pattern);
     /**
-     * @brief setPromptParrern  : 设置提示模式, 通过调用同名(QRegularExpression)实现
+     * @brief setPromptPattern  : 设置提示模式, 通过调用同名(QRegularExpression)实现
      * @param pattern           : 模式
      * @overload setPromptPattern(QRegularExpression)
      */
-    void setPromptParrern(const QString &pattern);
+    void setPromptPattern(const QString &pattern);
     /**
      * @brief setLoginPattern   : 设置登录提示模式
      * @param pattern           : 模式
@@ -136,13 +136,13 @@ public slots:
      */
     void sendData(const QString &data);
     /**
-     * @brief sendSync  : 发送 sync 指令
+     * @brief sendSync  : 发送 sync 同步序列, 以确保数据的及时传输和同步。这个同步序列是通过发送 Common::DM 字符来实现的。
      */
     void sendSync();
 
 signals:
     /**
-     * @brief loginRequired : 需要输入登录信息
+     * @brief loginRequired : 这个信号的最终结果是获取了一次 用户名 和 密码
      */
     void loginRequired();
     /**
