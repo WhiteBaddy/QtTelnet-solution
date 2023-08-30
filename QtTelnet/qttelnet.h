@@ -22,22 +22,22 @@ public:
      * @brief The Control enum  : 控制字符枚举
      */
     enum Control {
-        GoAhead
-        , InterruptProcess
-        , AreYouThere
-        , AbortOutput
-        , EraseCharacter
-        , EraseLine
-        , Break
-        , EndOfFile
-        , Suspend
-        , Abort
+        GoAhead             // 继续进行操作或发送数据
+        , InterruptProcess  // 中断当前进程或操作
+        , AreYouThere       // 发送一个询问, 确认远程主机是否仍然可用或响应
+        , AbortOutput       // 终止输出操作
+        , EraseCharacter    // 擦除一个字符
+        , EraseLine         // 擦除一行字符
+        , Break             // 发送一个中断信号, 或打断当前操作
+        , EndOfFile         // 文件结束, 或输入结束
+        , Suspend           // 暂停当前操作或进程
+        , Abort             // 终止当前操作或进程
     };
 
     /**
      * @brief connectToHost : 连接到主机
      * @param host          : 主机地址
-     * @param port          : 端口号
+     * @param port          : 端口号, telnet 的默认端口是 23
      */
     void connectToHost(const QString &host, quint16 port = 23);
 
@@ -51,6 +51,7 @@ public:
     /**
      * @brief setWindowSize : 设置窗口大小, 通过调用同名(int, int)实现
      * @param size          : 窗口大小
+     * @overload setWindowSize(int, int)
      */
     void setWindowSize(const QSize &size);
     /**
@@ -60,7 +61,7 @@ public:
      */
     void setWindowSize(int width, int height); // 字符数 / In number of characters
     /**
-     * @brief windowSize    : 获取窗口的大小
+     * @brief windowSize    : 获取当前窗口的大小
      * @return              : 表示窗口大小的 QSize 值
      */
     QSize windowSize() const;
@@ -89,6 +90,7 @@ public:
     /**
      * @brief setPromptParrern  : 设置提示模式, 通过调用同名(QRegularExpression)实现
      * @param pattern           : 模式
+     * @overload setPromptPattern(QRegularExpression)
      */
     void setPromptParrern(const QString &pattern);
     /**
@@ -99,6 +101,7 @@ public:
     /**
      * @brief setLoginPattern   : 设置登录提示模式, 通过调用同名(QRegularExpression)实现
      * @param pattern           : 模式
+     * @overload setLoginPattern(QRegularExpression)
      */
     void setLoginPattern(const QString &pattern);
     /**
@@ -109,6 +112,7 @@ public:
     /**
      * @brief setPasswordPattern    : 设置登录提示模式, 通过调用同名(QRegularExpression)实现
      * @param pattern               : 模式
+     * @overload setPasswordPattern(QRegularExpression)
      */
     void setPasswordPattern(const QString &pattern);
 

@@ -3,8 +3,6 @@
 
 #include <QtCore/qglobal.h>
 
-#define DUBUG_FUN_RUN 0
-
 #include <QDebug>
 
 #if defined(QTTELNET_LIBRARY)

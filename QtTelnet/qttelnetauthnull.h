@@ -8,6 +8,10 @@ class QtTelnetAuthNull : public QtTelnetAuth
 public:
     QtTelnetAuthNull();
 
+    /*!
+     * \brief authStep  : 实现基类中的这个函数
+     * \see QtTelnetAuth::authStep()
+     */
     QByteArray authStep(const QByteArray& data);
 };
 

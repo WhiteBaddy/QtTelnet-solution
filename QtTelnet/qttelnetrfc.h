@@ -3,6 +3,10 @@
 
 #include <QObject>
 
+#ifdef QTTELNET_DEBUG
+#include <QDebug>
+#endif
+
 namespace Common // RFC854
 {
     // Commands
@@ -10,8 +14,8 @@ namespace Common // RFC854
     const uchar SUSP  = 237;
     const uchar ABORT = 238;
     const uchar SE    = 240;
-    const uchar NOP   = 241; // 无操作（No Operation），无任何实际功能，用于维持会话连接，作为心跳信号。
-    const uchar DM    = 242; // 数据标记（Data Mark），用于指示数据流的边界。
+    const uchar NOP   = 241; // 无操作(No Operation), 无任何实际功能, 用于维持会话连接, 作为心跳信号。
+    const uchar DM    = 242; // 数据标记(Data Mark), 用于指示数据流的边界。同步的数据流部分。 这应始终伴随 TCP 紧急通知
     const uchar BRK   = 243;
     const uchar IP    = 244;
     const uchar AO    = 245;
@@ -19,12 +23,12 @@ namespace Common // RFC854
     const uchar EC    = 247;
     const uchar EL    = 248;
     const uchar GA    = 249;
-    const uchar SB    = 250; // 子选项开始（Subnegotiation Begin），用于开始 Telnet 子选项处理。
-    const uchar WILL  = 251; // 接受选项（Will），用于表示终端愿意启用或允许对方的某个选项。
-    const uchar WONT  = 252; // 拒绝选项（Won’t），用于表示终端拒绝或不支持对方的某个选项。
-    const uchar DO    = 253; // 请求对方启用选项（Do），用于向对方请求启用或允许某个选项。
-    const uchar DONT  = 254; // 请求对方禁用选项（Don’t），用于向对方请求禁用或关闭某个选项。
-    const uchar IAC   = 255; // Telnet命令（Interpret As Command），用于将下一个字节解释为Telnet命令。
+    const uchar SB    = 250; // 子选项开始(Subnegotiation Begin), 用于开始 Telnet 子选项处理。
+    const uchar WILL  = 251; // 接受选项(Will), 用于表示终端愿意启用或允许对方的某个选项。
+    const uchar WONT  = 252; // 拒绝选项(Won’t), 用于表示终端拒绝或不支持对方的某个选项。
+    const uchar DO    = 253; // 请求对方启用选项(Do), 用于向对方请求启用或允许某个选项。
+    const uchar DONT  = 254; // 请求对方禁用选项(Don’t), 用于向对方请求禁用或关闭某个选项。
+    const uchar IAC   = 255; // Telnet命令(Interpret As Command), 用于将下一个字节解释为Telnet命令。
 
     // Types
     const char IS    = 0;
@@ -42,7 +46,7 @@ namespace Common // RFC854
     const char Logout = 18; // RFC727, implemented
     const char TerminalType = 24; // RFC1091,
         // implemented to always return UNKNOWN
-    const char NAWS = 31; // RFC1073, implemented
+    const char NAWS = 31; // RFC1073, implemented                           //RFC 1073, 协商窗口尺寸(Negotiate About Window Size)
     const char TerminalSpeed = 32; // RFC1079, not implemented
     const char FlowControl = 33; // RFC1372, should be implemented?
     const char XDisplayLocation = 35; // RFC1096, not implemented
